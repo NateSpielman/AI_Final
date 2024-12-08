@@ -13,10 +13,16 @@ public class Ant : MonoBehaviour
     [SerializeField] private float speed;
     private float distanceTo;
 
+    private bool hasFruit = false;
+    public Transform fruit;
+
     private Blackboard blackboard;
 
     private static string SPEED = "Speed";
     private static string WAYPOINTS = "Waypoints";
+    private static string SEESFRUIT = "SeesFruit";
+    private static string HASFRUIT = "HasFruit";
+    private static string FRUIT = "Fruit";
 
     public void SetAnt(Path path)
     {
@@ -31,7 +37,23 @@ public class Ant : MonoBehaviour
 
         blackboard.SetData(SPEED, speed);
         blackboard.SetData(WAYPOINTS, waypoints);
+        blackboard.SetData(SEESFRUIT, false);
+        blackboard.SetData(HASFRUIT, hasFruit);
+        //blackboard.SetData(FRUIT, fruit);
 
         this.AddComponent<AntBT>().blackboard = blackboard;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Fruit")
+        {
+            blackboard.SetData(SEESFRUIT, true);
+            if(fruit != collision.gameObject.transform)
+            {
+                fruit = collision.gameObject.transform;
+                blackboard.SetData(FRUIT, fruit);
+            }
+        }
     }
 }
