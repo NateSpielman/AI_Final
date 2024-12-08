@@ -17,11 +17,15 @@ public class ActionMoveToFruit : Node
         this.transform = transform;
         this.fruit = (Transform)blackboard.GetData(fruit);
         this.speed = (float)blackboard.GetData(speed);
-        //Debug.Log(fruit);
     }
 
     public override NodeStatus Evaluate()
     {
+        if(fruit == null)
+        {
+            status = NodeStatus.FAILURE;
+        }
+
         if (transform.position == fruit.transform.position)
         {
             return NodeStatus.SUCCESS;

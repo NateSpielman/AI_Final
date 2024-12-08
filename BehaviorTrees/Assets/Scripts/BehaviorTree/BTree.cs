@@ -13,6 +13,11 @@ namespace BehaviorTree
             _root = SetupTree();
         }
 
+        public void Setup()
+        {
+            _root = SetupTree();
+        }
+
         private void Update()
         {
             if (_root != null)

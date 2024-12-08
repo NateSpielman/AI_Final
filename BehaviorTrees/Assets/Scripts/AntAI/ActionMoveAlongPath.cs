@@ -10,6 +10,7 @@ public class ActionMoveAlongPath : Node
     private Vector3[] waypoints;
     private int waypointIndex = 0;
     private float speed;
+    private string indexKey;
     private Blackboard blackboard;
 
     public ActionMoveAlongPath(Transform transform, Blackboard blackboard, string waypointsKey, string speedKey)

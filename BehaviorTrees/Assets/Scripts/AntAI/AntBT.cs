@@ -24,7 +24,8 @@ public class AntBT : BTree
             new Sequence(new List<Node>
             {
                 new CheckForFruit(blackboard, HASFRUIT, SEESFRUIT),
-                new ActionMoveToFruit(blackboard, transform, FRUIT, SPEED)
+                new ActionMoveToFruit(blackboard, transform, FRUIT, SPEED),
+                new ActionHarvest(blackboard, HASFRUIT, FRUIT)
             }),
 
             //PATROL

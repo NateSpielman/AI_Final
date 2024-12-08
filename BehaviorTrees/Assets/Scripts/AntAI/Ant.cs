@@ -9,9 +9,8 @@ public class Ant : MonoBehaviour
     //PATHING
     private Path path;
     private Vector3[] waypoints;
-    private int waypointIndex = 0;
     [SerializeField] private float speed;
-    private float distanceTo;
+    [SerializeField] private SpriteRenderer fruitSprite;
 
     private bool hasFruit = false;
     public Transform fruit;
@@ -20,6 +19,7 @@ public class Ant : MonoBehaviour
 
     private static string SPEED = "Speed";
     private static string WAYPOINTS = "Waypoints";
+    private static string WAYPOINTINDEX = "WaypointIndex";
     private static string SEESFRUIT = "SeesFruit";
     private static string HASFRUIT = "HasFruit";
     private static string FRUIT = "Fruit";
@@ -39,9 +39,21 @@ public class Ant : MonoBehaviour
         blackboard.SetData(WAYPOINTS, waypoints);
         blackboard.SetData(SEESFRUIT, false);
         blackboard.SetData(HASFRUIT, hasFruit);
-        //blackboard.SetData(FRUIT, fruit);
+        blackboard.SetData(FRUIT, fruit);
 
         this.AddComponent<AntBT>().blackboard = blackboard;
+    }
+
+    public void Update()
+    {
+        if ((bool)blackboard.GetData(HASFRUIT) == true)
+        {
+            fruitSprite.enabled = true;
+        }
+        else
+        {
+            fruitSprite.enabled = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,6 +65,8 @@ public class Ant : MonoBehaviour
             {
                 fruit = collision.gameObject.transform;
                 blackboard.SetData(FRUIT, fruit);
+                GetComponent<AntBT>().blackboard = blackboard;
+                GetComponent<AntBT>().Setup();
             }
         }
     }
